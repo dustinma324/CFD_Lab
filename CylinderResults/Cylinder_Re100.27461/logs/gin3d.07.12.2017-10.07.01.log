@@ -1,0 +1,297 @@
+*------------------------------------------------------------------------------*
+*          GIN3D: GPU-accelerated Incompressible Navier-Stokes Solver          *
+*------------------------------------------------------------------------------*
+*   GIN3D is developed by the team members of the High Performance Simulation  *
+*   Laboratory for Thermo-Fluids at Boise State University since 2007.         *
+*   Contributors: Julien Thibault, Dana Jacobsen, Rey DeLeon, Clancy Umphrey,  *
+*                 Inanc Senocak                                                *
+*   The current version is intended for educational purposes only.             *
+*------------------------------------------------------------------------------*
+
+Run started at local time: Wed Jul 12 10:07:01 2017
+
+Process 0/1 on node-10 using GPU 1/2 : Tesla K20m (4799.562MB)
+Process 1/1 on node-10 using GPU 2/2 : Tesla K20m (4799.562MB)
+
+Binary file RHSX written for timestep      0 (0.000000s)
+Binary file RHSY written for timestep      0 (0.000000s)
+Binary file RHSZ written for timestep      0 (0.000000s)
+Binary file U written for timestep      0 (0.000000s)
+Binary file V written for timestep      0 (0.000000s)
+Binary file W written for timestep      0 (0.000000s)
+Binary file P written for timestep      0 (0.000000s)
+VTK written for timestep      0 (0.000000s)
+Configuration:
+#Output Setup
+OutputFormat                  Binary
+OutputFormat                  VTK
+OutputPath                    results
+OutputPrefix                  Cylinder
+OutputFrequencyVTK1           100000
+OutputFrequencyVTK2           5000000
+OutputFrequencyVTKSwitch      2500000
+OutputFrequencyText1          100000
+OutputFrequencyText2          100000
+OutputFrequencyTextSwitch     2500000
+OutputTimeIntervalVTK1        100.000000
+OutputTimeIntervalVTK2        25.000000
+OutputTimeIntervalVTKSwitch   500.000000
+OutputTimeIntervalText1       100000.000000
+OutputTimeIntervalText2       500000.000000
+OutputTimeIntervalTextSwitch  10000000.000000
+OutputVariablesVTK            u g z 
+OutputVariablesTXT            u p 
+MatrixData                    u
+OutputPlane                   Mesh
+OutputSlice                   0.500
+Vorticity                     True
+PrecursorSim                  False
+
+#Mesh Definition
+Grid                513 17 513
+Dimensions          50.000000 0.500000 40.000000
+ReferenceLength     1.000000
+
+#Navier-Stokes Solver Parameters
+Nu                          0.0100000
+AdvectionScheme             0.0000000
+CFL                         0.4000000
+DTStability                 0.4000000
+TimeMethod                  AdamsBash
+StopTime                    250.000000
+ConstTimeStep               -0.0015000
+PressureCorrection          False
+Forcing                     0.0000000 0.0000000 0.0000000
+NumberForcingSegments       0
+
+#Domain Boundary Conditions
+Face_West                  Inlet
+Face_East                  Outlet
+Face_South                 Periodic
+Face_North                 Periodic
+Face_Bottom                FreeSlip
+Face_Top                   FreeSlip
+InletVelocities            1.0000000 0.0000000 0.0000000
+OutletVelocities           1.0000000 0.0000000 0.0000000
+ManualSetOutflowVelocity   False
+PeriodicShift              0.000000
+RecycleForInflow           False
+RecycleUpdateTime          0.000000
+RecyclePlaneX              0
+RecyclePlaneY              0
+ConstantMassFlowRate       False
+NumberForcingRegions       1
+ForcingRegionBounds        0.0 0.0
+ForcingRegionFlowRate      0.0 0.0 0.0
+Velocity_Reference         1.0000000
+Roughness                  0.000100
+DBStart                    0
+
+PerturbTurbInflow          False
+
+#Pressure Solver Setup
+SolverMethod            Multigrid
+MG_Cycle                V
+MG_Smoother             Jacobi
+MG_Loops                2
+MG_Levels               3
+MG_Jacobi_Weight        0.860
+MG_SOR_Weight           1.000
+MG_Smoother_Iterations  4 2
+
+#Turbulence Parameters
+TurbulenceModel     Laminar
+TurbCS              0.1000000
+FrictionVelocity    0.3470000
+Zeta                3.0000000
+
+#Complex Geometry
+Obstruction       IB 0 218 218 231
+IBNodeFile_U      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_ibnode_u.txt
+IBNodeFile_V      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_ibnode_v.txt
+IBNodeFile_W      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_ibnode_w.txt
+IBNodeFile_S      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_ibnode_s.txt
+IBFlagFile_U      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_flag_u.txt
+IBFlagFile_V      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_flag_v.txt
+IBFlagFile_W      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_flag_w.txt
+IBFlagFile_S      /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_flag_s.txt
+DistanceField     /scratch/dustinma/ginTrialRun/bin/Cylinder/Cylinder_50mx0.5mx40m_513-17-513_distfield.dat
+IBReconstruction Linear
+
+#Initial Conditions
+InitialCondition    ZeroField
+VelocityUniformHeight      0.000000
+
+#Temperature
+SolveTemperature  False
+
+#Time Series Options
+EnsembleAvg         True
+TurbStats               m 
+StartingTime           18000.000000
+
+#Variable Tracking
+TrackInterval      0.007843
+TrackCoordinates   1
+
+
+Other Information:
+   Total time steps requested = 1000000
+   Single precision math
+   CUDA thread block size: [32 16]   grid size [17 2 513]
+   Padded Mesh: [NX NY NZ] = [544 32 513]
+   Pressure Solver:
+      Multigrid V-cycle 3 levels, 2 loops
+      Weighted Jacobi  w=0.86  4,2 iterations
+
+   [dx dy dz] = [0.097847357392 0.033333335072 0.078277885914]
+   Reynolds                 100.00 (V_ref = 1.000000, L_ref = 1.000000)
+   Prandtl                  350.140045
+   Rayleigh                 0.000000
+   Grashof                  0.000000
+   Initial Temperature      371.575012
+   Filter width             0.063439
+   RANS Transition Height   0.380633
+
+
+Single precision calculations
+Features enabled (disabled if not listed):
+ - Using CUDA Events
+ - Intermediate output enabled
+ - Initial condition output enabled
+ - Final output enabled
+ - Time step output enabled
+ - Temperature solution enabled
+ - Smagorinsky model enabled
+ - Lagrangian Dynamic model enabled
+ - Smagorinsky / RANS model enabled
+ - Lagrangian Dynamic / RANS model enabled
+ - Mason Thomson model enabled
+ - Blended RANS/LES transition
+      Exponential blending function
+      Blended mixing lengths formulation
+ - Two-point reconstruction immersed boundary method
+ - Schumann Wall Model enabled
+      Wall model evaluated at 3 grid points off wall
+      Wall-parallel velocity components only for wall model
+ - Constant mass flow rate correction enabled
+ - Shear stress output enabled
+ - Temperature perturbation turbulent inflow enabled
+      Transport equation for perturbed temperature enabled
+      Perturbation applied via source term in transport equation
+      Amplitude normalized by update interval
+      Local velocity update intervals for perturbed temperature inflow enabled
+      Ri amplitude formulation for perturbed temperature inflow enabled
+      Average velocity formulation
+      Partial domain velocity-temperature coupling for perturbed temperature inflow enabled
+         Partial domain is 2 times perturbation zone depth
+ - Actuator disk model non-rotational enabled
+
+--------------- 
+
+Hard-coded constants:
+  - Log Law Intercept:     5.2000000000000002
+  - Inverse von Karman:    2.4390243902439024
+
+--------------- 
+
+Simulations GIN3D is ready for:
+ - Laminar Flow with the following immersed boundary schemes: 
+       two-point 
+ - LES of Turbulent Flow with the following immersed boundary schemes: 
+       two-point 
+ - Hybrid RANS/LES of Turbulent Flow with the following immersed boundary schemes: 
+       two-point 
+
+
+Maximum memory allocated on a GPU: 344.083MB
+Memory Allocation Per GPU:
+    Proc 0: 342.755MB  Proc 1: 344.083MB
+Memory Allocation Breakdown (Individual GPU):
+  Full Grids (20):
+    Proc 0: 342.656MB  Proc 1: 343.984MB
+  Planes:        0.066MB 
+  Ref. Points:   0.000MB 
+  Profiles:      0.000MB 
+  IB Nodes:
+    Proc 0: 0.032MB  Proc 1: 0.032MB
+
+VTK written for timestep  13081 (100.003242s)
+VTK written for timestep  26657 (200.008728s)
+
+Final Result:
+  Wall:4502.59s  Phys:250.00s  Ratio: 0.056x
+Binary file RHSX written for timestep  33444 (250.004105s)
+Binary file RHSY written for timestep  33444 (250.004105s)
+Binary file RHSZ written for timestep  33444 (250.004105s)
+Binary file P written for timestep  33444 (250.004105s)
+Binary file U written for timestep  33444 (250.004105s)
+Binary file V written for timestep  33444 (250.004105s)
+Binary file W written for timestep  33444 (250.004105s)
+Binary file P written for timestep  33444 (250.004105s)
+VTK written for timestep  33444 (250.004105s)
+
+TOTAL TIME:    4504.7507s ( 1.3 hrs) (12.532 GFLOPS)
+   Init:           10.7751s ( 0.24%)
+   Finalize:        2.1622s ( 0.05%)
+   Computation:  2710.7898s (60.18%)
+   Exchange:     1781.0236s (39.54%)
+ C Momentum:      614.3599s (13.68%)  ( 42.86 GFLOPS)
+ C Divergence:     16.7297s ( 0.37%)  ( 62.64 GFLOPS)
+ C Pressure:     3677.4959s (81.87%)  (  7.48 GFLOPS)
+ C Correction:     20.1385s ( 0.45%)  ( 78.06 GFLOPS)
+ C Obstacles:     152.4317s ( 3.39%)
+ C Checkpoint:      5.3250s ( 0.12%)
+ C Turb. Inflow:    0.1687s ( 0.00%)
+ P Smoother:     1384.4960s (37.65%)  ( 15.54 GFLOPS)
+ P Prolong:       410.9669s (11.18%)  (  2.13 GFLOPS)
+ P Restrict:      299.3316s ( 8.14%)  ( 17.05 GFLOPS)
+ E Temp:            0.0000s ( 0.00%)
+ E Temp BC:         0.0000s ( 0.00%)
+ E Turb:            0.0000s ( 0.00%)
+ E Turb BC:         0.0000s ( 0.00%)
+ E Momentum:      151.7789s (20.43%)  (173.47 GFLOPS)
+ E Mom BC:          7.3653s ( 0.99%)
+ E Divergence:     12.4452s ( 1.68%)  ( 84.21 GFLOPS)
+ E Correction:     19.5272s ( 2.63%)  ( 80.50 GFLOPS)
+ E Jacobi:          0.0000s ( 0.00%)
+ E GS:              0.0000s ( 0.00%)
+ E wJacobi:       196.0870s (26.40%)  (109.75 GFLOPS)
+ E PressureBC:     87.9311s (11.84%)
+ E ZeroBC:          6.9928s ( 0.94%)
+ E Laplacian:      26.1515s ( 3.52%)  ( 62.11 GFLOPS)
+ E Restrict:       25.9606s ( 3.49%)  (134.06 GFLOPS)
+ E Prolong:       118.6657s (15.97%)  (  7.38 GFLOPS)
+ E IB Zero:        82.6344s (11.12%)
+ E IB V BCs:        7.3181s ( 0.99%)
+ E IB P BCs:        0.0000s ( 0.00%)
+ E IB Nu BCs:       0.0000s ( 0.00%)
+ E Filter Vel:      0.0000s ( 0.00%)
+ E |S|:             0.0000s ( 0.00%)
+ E Sij_diag         0.0000s ( 0.00%)
+ E Sij_symm         0.0000s ( 0.00%)
+ E F(|S|Sij)        0.0000s ( 0.00%)
+ E Mij              0.0000s ( 0.00%)
+ E Lij              0.0000s ( 0.00%)
+ E LM and MM        0.0000s ( 0.00%)
+ E LagDyn Eqns:     0.0000s ( 0.00%)
+ E Extrap. Nu:      0.0000s ( 0.00%)
+ E Iter. u_tau      0.0000s ( 0.00%)
+ E Gen. Pert.:      0.0000s ( 0.00%)
+ E Update Src       0.0000s ( 0.00%)
+ E R_ij, i=j:       0.0000s ( 0.00%)
+ E R_ij, i~j:       0.0000s ( 0.00%)
+ E Dyn. Cs Avg:     0.0000s ( 0.00%)
+ E Fluct. Avg:      0.0000s ( 0.00%)
+ E Time Avg.:       0.0000s ( 0.00%)
+ E Dissipation:     0.0000s ( 0.00%)
+ E TKE:             0.0000s ( 0.00%)
+ E Two-point:       0.0000s ( 0.00%)
+ E Autocov:         0.0000s ( 0.00%)
+ E Mdot Calc.:      0.0000s ( 0.00%)
+ E Area Calc.:      0.0000s ( 0.00%)
+ E Spat. avg xy:    0.0000s ( 0.00%)
+ E Vol. Integral    0.0000s ( 0.00%)
+ E GPU Mem:         0.0000s ( 0.00%)
+
+Run ended successfully at local time: Wed Jul 12 11:22:06 2017
